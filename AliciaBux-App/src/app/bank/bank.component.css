@@ -1,8 +1,25 @@
+.formCategoryDiv
+{
+    margin: 10px
+}
+.inputForm
+{
+    margin-left: 20px;
+}
 #titleDiv
 {
 
 }
 #bankControlDiv
 {
-    
+    display: inline-block;
+    width: 40%;
+    margin: 15px;
+}
+#bankTableDiv
+{
+    display: inline-block;
+    width: 54%;
+    margin: 15px;
+    vertical-align: top;
 }

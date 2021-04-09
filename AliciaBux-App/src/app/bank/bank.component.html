@@ -2,5 +2,20 @@
 
 </div>
 <div id="bankControlDiv">
-    <button mat-raised></button>
+    <div class="formCategoryDiv">
+        <button mat-raised-button>Add Podcaster</button>
+        <mat-form-field class="inputForm" appearance="outline">
+            <mat-label>Podcaster Name</mat-label>
+            <input matInput placeholder="Placeholder">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-hint>Add a podcaster's name</mat-hint>
+        </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="formCategoryDiv">
+        <button mat-raised-button>Delete Podcaster</button>
+    </div>
+</div>
+<div id="bankTableDiv">
+    <app-bank-table></app-bank-table>
 </div>
