@@ -1,7 +1,11 @@
+using Alicia.Data.Entities;
+using Alicia.Data.Repository;
+using Alicia.Logic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +20,7 @@ namespace Alicia.Api
 {
     public class Startup
     {
+        private const string version = "v1";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +37,18 @@ namespace Alicia.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Alicia.Api", Version = "v1" });
             });
+
+            //Connection string
+            string connectionString = Configuration.GetConnectionString("aliciaBaseDb");
+
+            //DBContext
+            services.AddDbContext<HiAliciaContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            }, ServiceLifetime.Transient);
+
+            //Services
+            services.AddScoped<IAliciatory, Aliciatory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,16 +57,24 @@ namespace Alicia.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Alicia.Api v1"));
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            //Auth
             app.UseAuthorization();
+            app.UseAuthentication();
 
+            app.UseCors("AllowAngular");
+
+            //Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/" + version + "/swagger.json", "AliciaBux " + version.ToUpper());
+            });
+
+            //Endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

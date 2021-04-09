@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>bc309fcd-89c6-4828-b257-e4742b2ac86b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Alicia.Data\Alicia.Data.csproj" />
+    <ProjectReference Include="..\Alicia.Logic\Alicia.Logic.csproj" />
   </ItemGroup>
 
 </Project>
