@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alicia.Api", "Alicia.Api\Alicia.Api.csproj", "{FC3EBF39-0479-4B68-B00C-89A3EE6F7D12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alicia.Data", "Alicia.Data\Alicia.Data.csproj", "{D9657064-3185-43CD-8A25-FB68DD25C916}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2CFDADD7-7D70-4FA1-8EC6-4B872872D185} = {2CFDADD7-7D70-4FA1-8EC6-4B872872D185}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alicia.Logic", "Alicia.Logic\Alicia.Logic.csproj", "{2CFDADD7-7D70-4FA1-8EC6-4B872872D185}"
 EndProject
