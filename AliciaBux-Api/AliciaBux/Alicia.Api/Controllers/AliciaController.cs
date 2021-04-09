@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Alicia.Api.Models.Podcaster_Models;
+using Alicia.Logic.Interfaces;
+using Alicia.Logic.Objects;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +15,37 @@ namespace Alicia.Api.Controllers
     [ApiController]
     public class AliciaController : ControllerBase
     {
-        // GET: api/<AliciaController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAliciatory aliciatory;
+
+        public AliciaController(IAliciatory _aliciatory)
         {
-            return new string[] { "value1", "value2" };
+            aliciatory = _aliciatory ?? throw new ArgumentNullException(nameof(_aliciatory));
         }
 
-        // GET api/<AliciaController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<AliciaController>
+        [HttpGet]
+        public async Task<ActionResult<List<Podcaster>>> GetAllPodcasters()
         {
-            return "value";
+            List<Podcaster> logicPodcasters = await aliciatory.GetAllPodcasters();
+            return Ok(logicPodcasters);
+        }
+
+        // GET: api/<AliciaController>/12345
+        [HttpGet("{podcasterID}")]
+        public async Task<ActionResult<Podcaster>> GetPodcaster(Guid podcasterID)
+        {
+            Podcaster logicPodcasters = await aliciatory.GetPodcasterByID(podcasterID);
+            return Ok(logicPodcasters);
         }
 
         // POST api/<AliciaController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Podcaster>> Post([FromBody] NewPodcasterModel newPodcaster)
         {
-        }
-
-        // PUT api/<AliciaController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<AliciaController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            Guid newPodcasterGUID = Guid.NewGuid();
+            await aliciatory.CreateNewPodcaster(newPodcaster.name, newPodcasterGUID);
+            await aliciatory.SaveAsync();
+            return Ok(await aliciatory.GetPodcasterByID(newPodcasterGUID));
         }
     }
 }
