@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { BankComponent } from './bank/bank.component';
 import { CustomMaterialModule } from './core/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BankTableComponent } from './bank/bank-table/bank-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BankComponent
+    BankComponent,
+    BankTableComponent
   ],
   imports: [
     BrowserModule,
