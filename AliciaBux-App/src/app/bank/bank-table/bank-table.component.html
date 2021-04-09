@@ -1,0 +1,36 @@
+<cdk-virtual-scroll-viewport class="vScroller scrollbarDiv scrollbar scrollbar-primary mat-elevation-z3" *ngIf="podcasters.length > 0"
+  [tvsItemSize]="48"
+  [style.height.px]="(podcasters.length * 61) + 57">
+  <table mat-table [dataSource]="dataSource" id="data-table">
+
+    <!-- Podcaster Column -->
+    <ng-container matColumnDef="podcaster">
+      <th mat-header-cell class="header" *matHeaderCellDef> Podcaster </th>
+      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.name }}</td>
+    </ng-container>
+
+    <!-- Balance Column -->
+    <ng-container matColumnDef="balance">
+      <th mat-header-cell class="header" *matHeaderCellDef> Balance </th>
+      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.balance }}</td>
+    </ng-container>
+
+    <!-- Control Column -->
+    <ng-container matColumnDef="control">
+      <th mat-header-cell class="header" *matHeaderCellDef> Control </th>
+      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">
+        <button class="controlButton" mat-raised-button>Give Bux</button>
+        <button class="controlButton" mat-raised-button>Take Bux</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
+</cdk-virtual-scroll-viewport>
+
+<mat-card *ngIf="podcasters.length == 0">
+  <mat-card-content>
+    <mat-toolbar>No Podcasters Exist For This Category Alicia</mat-toolbar>
+  </mat-card-content>
+</mat-card>
