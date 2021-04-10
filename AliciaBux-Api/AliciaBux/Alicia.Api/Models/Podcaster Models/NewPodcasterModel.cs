@@ -7,6 +7,6 @@ namespace Alicia.Api.Models.Podcaster_Models
 {
     public class NewPodcasterModel
     {
-        public string name { get; set; }
+        public string podcasterName { get; set; }
     }
 }
