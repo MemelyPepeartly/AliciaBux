@@ -1,5 +1,6 @@
 export class Podcaster
 {
-    name: string;
-    balance: number;
+    podcasterID: string;
+    podcasterName: string;
+    podcasterBalance: number;
 }
