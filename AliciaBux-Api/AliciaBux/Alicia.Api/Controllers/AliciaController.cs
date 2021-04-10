@@ -36,7 +36,7 @@ namespace Alicia.Api.Controllers
             }
             catch(Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, e);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
 
         }
@@ -45,18 +45,32 @@ namespace Alicia.Api.Controllers
         [HttpGet("{podcasterID}")]
         public async Task<ActionResult<Podcaster>> GetPodcaster(Guid podcasterID)
         {
-            Podcaster logicPodcasters = await aliciatory.GetPodcasterByID(podcasterID);
-            return Ok(logicPodcasters);
+            try
+            {
+                Podcaster logicPodcasters = await aliciatory.GetPodcasterByID(podcasterID);
+                return Ok(logicPodcasters);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
         // POST api/<AliciaController>
         [HttpPost]
         public async Task<ActionResult<Podcaster>> Post([FromBody] NewPodcasterModel newPodcaster)
         {
-            Guid newPodcasterGUID = Guid.NewGuid();
-            await aliciatory.CreateNewPodcaster(newPodcaster.podcasterName, newPodcasterGUID);
-            await aliciatory.SaveAsync();
-            return Ok(await aliciatory.GetPodcasterByID(newPodcasterGUID));
+            try
+            {
+                Guid newPodcasterGUID = Guid.NewGuid();
+                await aliciatory.CreateNewPodcaster(newPodcaster.podcasterName, newPodcasterGUID);
+                await aliciatory.SaveAsync();
+                return Ok(await aliciatory.GetPodcasterByID(newPodcasterGUID));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
         // PUT api/<AliciaController>/GiveBux
@@ -64,18 +78,32 @@ namespace Alicia.Api.Controllers
 
         public async Task<ActionResult<Podcaster>> PutGiveBux(Guid podcasterID)
         {
-            await aliciatory.GiveBux(podcasterID);
-            await aliciatory.SaveAsync();
-            return Ok(await aliciatory.GetPodcasterByID(podcasterID));
+            try
+            {
+                await aliciatory.GiveBux(podcasterID);
+                await aliciatory.SaveAsync();
+                return Ok(await aliciatory.GetPodcasterByID(podcasterID));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
         // PUT api/<AliciaController>/TakeBux
         [HttpPut("{podcasterID}/TakeBux")]
         public async Task<ActionResult<Podcaster>> PutTakeBux(Guid podcasterID)
         {
-            await aliciatory.TakeBux(podcasterID);
-            await aliciatory.SaveAsync();
-            return Ok(await aliciatory.GetPodcasterByID(podcasterID));
+            try
+            {
+                await aliciatory.TakeBux(podcasterID);
+                await aliciatory.SaveAsync();
+                return Ok(await aliciatory.GetPodcasterByID(podcasterID));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
     }
 }
