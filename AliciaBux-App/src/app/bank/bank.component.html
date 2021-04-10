@@ -1,21 +1,33 @@
 <div id="titleDiv">
-
+    <img id="bobImg" src="../../assets/images/bob.jpg">
+    <img id="LHGImg" src="../../assets/images/LovelyHeart-Fast.gif">
+    <img id="LHGImg" src="../../assets/images/screm.png">
+    <img id="LHGImg" src="../../assets/images/honse.jpg">
 </div>
-<div id="bankControlDiv">
-    <div class="formCategoryDiv">
-        <button mat-raised-button>Add Podcaster</button>
-        <mat-form-field class="inputForm" appearance="outline">
-            <mat-label>Podcaster Name</mat-label>
-            <input matInput placeholder="Placeholder">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            <mat-hint>Add a podcaster's name</mat-hint>
-        </mat-form-field>
-    </div>
+<mat-card id="bankControlCard">
+    <mat-card-content class="formCategoryCardContent">
+        <button mat-raised-button (click)="postNewPodcaster()" [disabled]="postingNewPodcaster || podcasterFormGroup.invalid">Add Podcaster</button>
+        <form class="inputForm" [formGroup]="podcasterFormGroup">
+            <mat-form-field appearance="outline">
+                <mat-label>Podcaster Name</mat-label>
+                <input matInput formControlName="podcasterName">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint>Add a podcaster's name</mat-hint>
+            </mat-form-field>
+            <div class="error" *ngIf="podcasterFormControls.podcasterName.errors && podcasterFormControls.podcasterName.touched">
+                <div *ngIf="podcasterFormControls.podcasterName.errors.maxlength">The name is too long, Alicia</div>
+                <div *ngIf="podcasterFormControls.podcasterName.errors.required">Gotta put a name here, Alicia</div>
+            </div>
+        </form>
+    </mat-card-content>
     <mat-divider></mat-divider>
-    <div class="formCategoryDiv">
+    <mat-card-content class="formCategoryCardContent">
         <button mat-raised-button>Delete Podcaster</button>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>
 <div id="bankTableDiv">
-    <app-bank-table></app-bank-table>
+    <mat-spinner *ngIf="!showBankTable"></mat-spinner>
+    <app-bank-table *ngIf="showBankTable" 
+        [podcasters]="podcasters"
+        (updatedBux)="refreshPodcasters()"></app-bank-table>
 </div>

@@ -1,16 +1,26 @@
-.formCategoryDiv
+.formCategoryCardContent
 {
-    margin: 10px
+    margin: 10px;
+    margin-top: 30px;
 }
 .inputForm
 {
+    display: inline-block;
     margin-left: 20px;
+}
+#LHGImg
+{
+    width: 200px;
+}
+#bobImg
+{
+    width: 200px;
 }
 #titleDiv
 {
 
 }
-#bankControlDiv
+#bankControlCard
 {
     display: inline-block;
     width: 40%;
@@ -19,7 +29,7 @@
 #bankTableDiv
 {
     display: inline-block;
-    width: 54%;
+    width: 52%;
     margin: 15px;
     vertical-align: top;
 }
