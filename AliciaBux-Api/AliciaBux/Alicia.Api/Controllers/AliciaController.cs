@@ -2,6 +2,7 @@
 using Alicia.Logic.Interfaces;
 using Alicia.Logic.Objects;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,16 @@ namespace Alicia.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Podcaster>>> GetAllPodcasters()
         {
-            List<Podcaster> logicPodcasters = await aliciatory.GetAllPodcasters();
-            return Ok(logicPodcasters.OrderBy(p => p.podcasterName));
+            try
+            {
+                List<Podcaster> logicPodcasters = await aliciatory.GetAllPodcasters();
+                return Ok(logicPodcasters.OrderBy(p => p.podcasterName));
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
+
         }
 
         // GET: api/<AliciaController>/12345
