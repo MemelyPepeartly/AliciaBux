@@ -1,6 +1,7 @@
 ﻿using Alicia.Api.Models.Podcaster_Models;
 using Alicia.Logic.Interfaces;
 using Alicia.Logic.Objects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Alicia.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AliciaController : ControllerBase
     {
         private readonly IAliciatory aliciatory;
