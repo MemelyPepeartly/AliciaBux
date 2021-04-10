@@ -6,6 +6,10 @@ import { BankComponent } from './bank/bank.component';
 import { CustomMaterialModule } from './core/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BankTableComponent } from './bank/bank-table/bank-table.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,8 +19,13 @@ import { BankTableComponent } from './bank/bank-table/bank-table.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CustomMaterialModule,
-    BrowserAnimationsModule
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
