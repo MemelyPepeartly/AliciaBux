@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TableVirtualScrollDataSource } from 'ng-table-virtual-scroll';
 import { Podcaster } from 'src/app/Classes/podcaster';
+import { AliciaService } from 'src/app/services/alicia.service';
 
 @Component({
   selector: 'app-bank-table',
@@ -9,22 +10,33 @@ import { Podcaster } from 'src/app/Classes/podcaster';
 })
 export class BankTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(private aliciaService: AliciaService) { }
 
-  @Input() podcasters: Array<Podcaster> = []
+  @Input() podcasters: Array<Podcaster>;
+  @Output() updatedBux: EventEmitter<Podcaster> = new EventEmitter()
 
   columns: string[] = ["podcaster", "balance", "control"];
 
   public isAdmin: boolean = false;
+  public disableControl: boolean = false;
+
   dataSource = new TableVirtualScrollDataSource([]);
 
   ngOnInit(): void {
-    let testPod: Podcaster = 
-    {
-      name: "Anon",
-      balance: 123
-    }
-    this.podcasters.push(testPod);
     this.dataSource = new TableVirtualScrollDataSource(this.podcasters);
+  }
+  public giveBux(anon: Podcaster)
+  {
+    this.disableControl = true;
+    this.aliciaService.putGiveBuxByID(anon.podcasterID).subscribe(res => {
+      this.updatedBux.emit(res);
+    });
+  }
+  public takeBux(anon: Podcaster)
+  {
+    this.disableControl = true;
+    this.aliciaService.putTakeBuxByID(anon.podcasterID).subscribe(res => {
+      this.updatedBux.emit(res);
+    });
   }
 }

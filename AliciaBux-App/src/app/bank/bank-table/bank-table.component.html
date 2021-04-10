@@ -6,21 +6,21 @@
     <!-- Podcaster Column -->
     <ng-container matColumnDef="podcaster">
       <th mat-header-cell class="header" *matHeaderCellDef> Podcaster </th>
-      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.name }}</td>
+      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.podcasterName }}</td>
     </ng-container>
 
     <!-- Balance Column -->
     <ng-container matColumnDef="balance">
       <th mat-header-cell class="header" *matHeaderCellDef> Balance </th>
-      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.balance }}</td>
+      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.podcasterBalance }}</td>
     </ng-container>
 
     <!-- Control Column -->
     <ng-container matColumnDef="control">
       <th mat-header-cell class="header" *matHeaderCellDef> Control </th>
       <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">
-        <button class="controlButton" mat-raised-button>Give Bux</button>
-        <button class="controlButton" mat-raised-button>Take Bux</button>
+        <button class="controlButton" mat-raised-button (click)="giveBux(anon)">Give Bux</button>
+        <button class="controlButton" mat-raised-button (click)="takeBux(anon)">Take Bux</button>
       </td>
     </ng-container>
 
