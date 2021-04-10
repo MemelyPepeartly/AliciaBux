@@ -38,6 +38,19 @@ namespace Alicia.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Alicia.Api", Version = "v1" });
             });
 
+            //Cors
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngular",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200", "https://aliciabux.azurewebsites.net")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                });
+            });
+
             //Connection string
             string connectionString = Configuration.GetConnectionString("aliciaBaseDb");
 
