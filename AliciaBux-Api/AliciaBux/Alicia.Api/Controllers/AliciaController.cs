@@ -27,7 +27,7 @@ namespace Alicia.Api.Controllers
         public async Task<ActionResult<List<Podcaster>>> GetAllPodcasters()
         {
             List<Podcaster> logicPodcasters = await aliciatory.GetAllPodcasters();
-            return Ok(logicPodcasters);
+            return Ok(logicPodcasters.OrderBy(p => p.podcasterName));
         }
 
         // GET: api/<AliciaController>/12345
@@ -43,9 +43,28 @@ namespace Alicia.Api.Controllers
         public async Task<ActionResult<Podcaster>> Post([FromBody] NewPodcasterModel newPodcaster)
         {
             Guid newPodcasterGUID = Guid.NewGuid();
-            await aliciatory.CreateNewPodcaster(newPodcaster.name, newPodcasterGUID);
+            await aliciatory.CreateNewPodcaster(newPodcaster.podcasterName, newPodcasterGUID);
             await aliciatory.SaveAsync();
             return Ok(await aliciatory.GetPodcasterByID(newPodcasterGUID));
+        }
+
+        // PUT api/<AliciaController>/GiveBux
+        [HttpPut("{podcasterID}/GiveBux")]
+
+        public async Task<ActionResult<Podcaster>> PutGiveBux(Guid podcasterID)
+        {
+            await aliciatory.GiveBux(podcasterID);
+            await aliciatory.SaveAsync();
+            return Ok(await aliciatory.GetPodcasterByID(podcasterID));
+        }
+
+        // PUT api/<AliciaController>/TakeBux
+        [HttpPut("{podcasterID}/TakeBux")]
+        public async Task<ActionResult<Podcaster>> PutTakeBux(Guid podcasterID)
+        {
+            await aliciatory.TakeBux(podcasterID);
+            await aliciatory.SaveAsync();
+            return Ok(await aliciatory.GetPodcasterByID(podcasterID));
         }
     }
 }
