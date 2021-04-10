@@ -52,6 +52,19 @@ namespace Alicia.Data.Repository
             return logicPodcaster;
         }
 
+        public async Task GiveBux(Guid podcasterID)
+        {
+            Entities.Podcaster contextPodcaster = await aliciaContext.Podcasters.FirstOrDefaultAsync(p => p.PodcasterId == podcasterID);
+            contextPodcaster.PodcasterBalance += 1;
+            aliciaContext.Podcasters.Update(contextPodcaster);
+        }
+        public async Task TakeBux(Guid podcasterID)
+        {
+            Entities.Podcaster contextPodcaster = await aliciaContext.Podcasters.FirstOrDefaultAsync(p => p.PodcasterId == podcasterID);
+            contextPodcaster.PodcasterBalance -= 1;
+            aliciaContext.Podcasters.Update(contextPodcaster);
+        }
+
         public async Task SaveAsync()
         {
             await aliciaContext.SaveChangesAsync();
