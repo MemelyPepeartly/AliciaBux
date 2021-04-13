@@ -22,14 +22,15 @@
 }
 #bankControlCard
 {
-    display: inline-block;
-    width: 40%;
-    margin: 15px;
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 #bankTableDiv
 {
-    display: inline-block;
-    width: 52%;
-    margin: 15px;
-    vertical-align: top;
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
