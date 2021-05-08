@@ -64,6 +64,11 @@ namespace Alicia.Data.Repository
             contextPodcaster.PodcasterBalance -= 1;
             aliciaContext.Podcasters.Update(contextPodcaster);
         }
+        public async Task DeletePodcaster(Guid podcasterID)
+        {
+            Entities.Podcaster contextPodcaster = await aliciaContext.Podcasters.FirstOrDefaultAsync(p => p.PodcasterId == podcasterID);
+            aliciaContext.Podcasters.Remove(contextPodcaster);
+        }
 
         public async Task SaveAsync()
         {

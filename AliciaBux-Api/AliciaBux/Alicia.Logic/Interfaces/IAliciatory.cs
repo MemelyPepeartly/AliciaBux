@@ -34,6 +34,12 @@ namespace Alicia.Logic.Interfaces
         Task<List<Podcaster>> GetAllPodcasters();
         Task<Podcaster> GetPodcasterByID(Guid podcasterID);
         /// <summary>
+        /// Remove a podcaster
+        /// </summary>
+        /// <param name="podcasterID"></param>
+        /// <returns></returns>
+        Task DeletePodcaster(Guid podcasterID);
+        /// <summary>
         /// Saves the context
         /// </summary>
         /// <returns></returns>

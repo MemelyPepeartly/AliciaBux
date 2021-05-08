@@ -90,7 +90,7 @@ namespace Alicia.Api.Controllers
             }
         }
 
-        // PUT api/<AliciaController>/TakeBux
+        // PUT api/<AliciaController>/{podcasterID}/TakeBux
         [HttpPut("{podcasterID}/TakeBux")]
         public async Task<ActionResult<Podcaster>> PutTakeBux(Guid podcasterID)
         {
@@ -103,6 +103,21 @@ namespace Alicia.Api.Controllers
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        // DELETE api/<AliciaController>/{podcasterID}/RemovePodcaster
+        [HttpDelete("{podcasterID}/RemovePodcaster")]
+        public async Task<ActionResult<bool>> DeletePodcaster(Guid podcasterID)
+        {
+            try
+            {
+                await aliciatory.DeletePodcaster(podcasterID);
+                await aliciatory.SaveAsync();
+                return Ok(true);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "YOU FUCKED UP");
             }
         }
     }
