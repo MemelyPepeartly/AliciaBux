@@ -18,19 +18,23 @@ export class AliciaService {
     const body = res;
     return body || { };
   }
-  getAllPodcasters(): Observable<any> {
+  getAllPodcasters(): Observable<Array<Podcaster>> {
     return this.http.get<Array<Podcaster>>(endpoint + 'Alicia');
   }
-  getPodcasterByID(podcasterID: string): Observable<any> {
+  getPodcasterByID(podcasterID: string): Observable<Podcaster> {
     return this.http.get<Podcaster>(endpoint + 'Alicia/' + podcasterID);
   }
-  postNewPodcaster(requestBody: NewPodcasterModel): Observable<any> {
+  postNewPodcaster(requestBody: NewPodcasterModel): Observable<Podcaster> {
     return this.http.post<Podcaster>(endpoint + 'Alicia', requestBody)
   }
-  putGiveBuxByID(podcasterID: string): Observable<any> {
+  putGiveBuxByID(podcasterID: string): Observable<Podcaster> {
     return this.http.put<Podcaster>(endpoint + 'Alicia/' + podcasterID + "/GiveBux", null);
   }
-  putTakeBuxByID(podcasterID: string): Observable<any> {
+  putTakeBuxByID(podcasterID: string): Observable<Podcaster> {
     return this.http.put<Podcaster>(endpoint + 'Alicia/' + podcasterID + "/TakeBux", null);
+  }
+  deletePodcaster(podcasterID: string): Observable<boolean>
+  {
+    return this.http.delete<boolean>(endpoint + "Alicia/" + podcasterID + "/RemovePodcaster")
   }
 }

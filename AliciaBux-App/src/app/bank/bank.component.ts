@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewPodcasterModel } from '../Classes/ApiModels/new-podcaster-model';
 import { Podcaster } from '../Classes/podcaster';
@@ -11,7 +11,7 @@ import { AliciaService } from '../services/alicia.service';
 })
 export class BankComponent implements OnInit {
 
-  constructor(private aliciaService: AliciaService,
+  constructor(private aliciaService: AliciaService, private changeDetectorRefs: ChangeDetectorRef,
     private formBuilder: FormBuilder) { }
 
   public podcasterFormGroup: FormGroup;
@@ -51,13 +51,11 @@ export class BankComponent implements OnInit {
     this.refreshPodcasters();
     this.postingNewPodcaster = false;
   }
-  public refreshPodcasters()
+  public async refreshPodcasters()
   {
-    this.showBankTable = false;
-    this.aliciaService.getAllPodcasters().subscribe(podcasters => {
-      this.podcasters = podcasters;
+    this.aliciaService.getAllPodcasters().subscribe(res => {
+      this.podcasters = res
       this.showBankTable = true;
     });
   }
-
 }

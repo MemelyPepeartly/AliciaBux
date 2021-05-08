@@ -1,33 +1,31 @@
-<cdk-virtual-scroll-viewport class="vScroller scrollbarDiv scrollbar scrollbar-primary mat-elevation-z3" *ngIf="podcasters.length > 0"
-  [tvsItemSize]="48"
-  [style.height.px]="(podcasters.length * 61) + 57">
-  <table mat-table [dataSource]="dataSource" id="data-table">
 
-    <!-- Podcaster Column -->
-    <ng-container matColumnDef="podcaster">
-      <th mat-header-cell class="header" *matHeaderCellDef> Podcaster </th>
-      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.podcasterName }}</td>
-    </ng-container>
+<table mat-table *ngIf="podcasters.length > 0" [dataSource]="podcasters" id="data-table">
 
-    <!-- Balance Column -->
-    <ng-container matColumnDef="balance">
-      <th mat-header-cell class="header" *matHeaderCellDef> Balance </th>
-      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.podcasterBalance }}</td>
-    </ng-container>
+  <!-- Podcaster Column -->
+  <ng-container matColumnDef="podcaster">
+    <th mat-header-cell class="header" *matHeaderCellDef> Podcaster </th>
+    <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.podcasterName }}</td>
+  </ng-container>
 
-    <!-- Control Column -->
-    <ng-container matColumnDef="control">
-      <th mat-header-cell class="header" *matHeaderCellDef> Control </th>
-      <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">
-        <button class="controlButton" mat-raised-button (click)="giveBux(anon)">Give Bux</button>
-        <button class="controlButton" mat-raised-button (click)="takeBux(anon)">Take Bux</button>
-      </td>
-    </ng-container>
+  <!-- Balance Column -->
+  <ng-container matColumnDef="balance">
+    <th mat-header-cell class="header" *matHeaderCellDef> Balance </th>
+    <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">{{ anon.podcasterBalance }}</td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-  </table>
-</cdk-virtual-scroll-viewport>
+  <!-- Control Column -->
+  <ng-container matColumnDef="control">
+    <th mat-header-cell class="header" *matHeaderCellDef> Control </th>
+    <td mat-cell *matCellDef="let anon" class="reactiveDataColumn">
+      <button class="controlButton" mat-raised-button [disabled]="disableControl" (click)="giveBux(anon)">Give Bux</button>
+      <button class="controlButton" mat-raised-button [disabled]="disableControl" (click)="takeBux(anon)">Take Bux</button>
+      <button class="controlButton" mat-raised-button color="warn" [disabled]="disableControl" (click)="removePodcaster(anon)">Remove Podcaster</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+</table>
 
 <mat-card *ngIf="podcasters.length == 0">
   <mat-card-content>

@@ -13,7 +13,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'disabled' })],
   exports: [RouterModule],
   providers: [
   ]
